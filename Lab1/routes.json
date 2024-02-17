@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Kyiv - Khmelnitsky",
+    "destinationStation": "Khmelnitsky",
+    "trainNumber":  1,
+    "arrivalTime": "17.02.2024 20:20",
+    "departureTime": "28.02.2024 02:00"
+  },
+  {
+    "name": "Khmelnitsky - Lviv",
+    "destinationStation": "Khmelnitsky",
+    "trainNumber":  1,
+    "arrivalTime": "17.02.2024 20:20",
+    "departureTime": "18.03.2024 02:00"
+  },
+    {
+    "name": "Khmelnitsky - Bakhmut",
+    "destinationStation": "Khmelnitsky",
+    "trainNumber":  4,
+    "arrivalTime": "17.02.2024 20:20",
+    "departureTime": "18.02.2024 02:00"
+  },
+  {
+    "name": "Khmelnitsky - Donetsk",
+    "destinationStation": "Khmelnitsky",
+    "trainNumber":  5,
+    "arrivalTime": "18.02.2024 15:20",
+    "departureTime": "18.02.2024 18:00"
+  },
+  {
+    "name": "Khmelnitsky - Lviv",
+    "destinationStation": "Khmelnitsky",
+    "trainNumber":  5,
+    "arrivalTime": "18.02.2024 15:20",
+    "departureTime": "18.02.2024 18:00"
+  }
+]
