@@ -90,9 +90,13 @@ namespace lab2_7
 
     private void Form1_Load(object sender, EventArgs e) {
       CefSettings settings = new CefSettings();
+      //settings.CefCommandLineArgs.Add("disable-features", "BlockInsecurePrivateNetworkRequests");
+      settings.CefCommandLineArgs.Add("disable-features", "OutOfBlinkCors");
+      settings.CefCommandLineArgs.Add("disable-web-security", "true");
       Cef.Initialize(settings);
 
-      string path = "C:\\Users\\Swayze\\source\\repos\\Labs\\lab2_7\\cef\\public\\index.html";
+      string path = "http://localhost:5173/";
+      //string path = "C:\\Users\\Swayze\\source\\repos\\Labs\\lab2_7\\cef\\build\\index.html";
       Form1.browser = new ChromiumWebBrowser(path);
   
       Form1.browser.Dock = DockStyle.Fill;
@@ -103,7 +107,7 @@ namespace lab2_7
         if (!Form1.browser.IsLoading)
         {
           Form1.browser.ShowDevTools();
-          Form1.browser.JavascriptObjectRepository.Register("boundAsync", new BoundObject(), BindingOptions.DefaultBinder);
+          //Form1.browser.JavascriptObjectRepository.Register("boundAsync", new BoundObject(), BindingOptions.DefaultBinder);
         }
       };
     }

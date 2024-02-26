@@ -1,14 +1,16 @@
 <script>
-  import mailBox from './img/mailbox.png';
-  import logotype from './img/logo.png';
   import Icon from '@iconify/svelte';
+  import { base } from '$app/paths';
+
+  import logo from './img/logo.png';
+  import mailbox from './img/mailbox.png';
 </script>
 
 <section id="footer">
   <div class="footer">
     <div class="container">
       <div class="logo">
-        <img src="{logotype}" alt="">
+        <img loading="lazy" src="{logo}" alt="">
         <div class="socialMedia">
           <Icon icon="ic:baseline-facebook" />
           <Icon icon="mdi:twitter" />
@@ -84,7 +86,7 @@
         </div>
       </div>
       <div class="picture">
-        <img src="{mailBox}" alt="mailBox">
+        <img loading="lazy" src="{mailbox}" alt="">
       </div>
     </div>
   </div>

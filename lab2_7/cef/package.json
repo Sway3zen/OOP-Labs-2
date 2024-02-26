@@ -25,6 +25,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@fontsource-variable/montserrat": "^5.0.17"
+		"@fontsource-variable/montserrat": "^5.0.17",
+		"svelte-preprocess": "^5.1.3"
 	}
 }

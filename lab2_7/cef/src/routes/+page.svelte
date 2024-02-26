@@ -1,9 +1,12 @@
 <script lang="ts">
 	import './assets/styles/home.scss'
+
 	// import Counter from './Counter.svelte';
-	import HomeHeader from './assets/images/homeHeader.png'
 	import Icon from '@iconify/svelte';
 	let activeType = 'Flights'
+
+	import { base } from '$app/paths';
+	//const image = `./assets/images/homeHeader.png`;
 
 	const changeActiveType = (type: string) => {
 		activeType = type;
@@ -18,7 +21,7 @@
 <section id="home">
 	<div class="findTicket">
 		<div class="header">
-			<img src="{HomeHeader}" alt="">
+			<img src="/images/homeHeader.png" alt="">
 			<div class="text">
 				<span>Helping Others</span>
 				<span>Live & Travel</span>
