@@ -1,6 +1,10 @@
 <script>
-	import Header from './Header.svelte';
+	import Header from './components/header.svelte';
+	import Footer from './components/footer.svelte';
 	import './styles.css';
+
+	// Supports weights 100-900
+	import '@fontsource-variable/montserrat';
 </script>
 
 <div class="app">
@@ -11,11 +15,14 @@
 	</main>
 
 	<footer>
-		<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+		<Footer />
 	</footer>
 </div>
 
 <style>
+	:global(body) {
+		font-family: 'Montserrat Variable', sans-serif;
+	}
 	.app {
 		display: flex;
 		flex-direction: column;
@@ -26,11 +33,10 @@
 		flex: 1;
 		display: flex;
 		flex-direction: column;
-		padding: 1rem;
 		width: 100%;
-		max-width: 64rem;
-		margin: 0 auto;
 		box-sizing: border-box;
+
+		padding: 20px;
 	}
 
 	footer {
@@ -38,16 +44,8 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		padding: 12px;
+
+		padding-top: 200px;
 	}
 
-	footer a {
-		font-weight: bold;
-	}
-
-	@media (min-width: 480px) {
-		footer {
-			padding: 12px 0;
-		}
-	}
 </style>

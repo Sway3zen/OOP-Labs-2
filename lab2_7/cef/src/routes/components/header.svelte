@@ -1,6 +1,5 @@
 <script>
   import { onMount } from 'svelte';
-  import page from 'page.js';
 
   import logotype from './img/logo.png';
   import { activePage } from '../states';
@@ -8,20 +7,6 @@
 
 
   import OtherLink from '../pages/abeba.svelte';
-
-  import Home from '../App.svelte';
-
-  function navigate(ctx, next) {
-    if (ctx.path == '/') {
-      page.redirect("/pages/" + next.path);
-    }
-
-    console.log('nagivete to: ', ctx.path);
-  }
-
-  page("/", navigate);
-  page('/abeba', navigate);
-  page.start();
 
   onMount(() => {
     const setActivePage = () => {
