@@ -22,6 +22,7 @@
 <style>
 	:global(body) {
 		font-family: 'Montserrat Variable', sans-serif;
+		
 	}
 	.app {
 		display: flex;
@@ -35,8 +36,6 @@
 		flex-direction: column;
 		width: 100%;
 		box-sizing: border-box;
-
-		padding: 20px;
 	}
 
 	footer {
@@ -45,7 +44,9 @@
 		justify-content: center;
 		align-items: center;
 
-		padding-top: 200px;
+		padding-top: 50px;
 	}
+
+
 
 </style>
