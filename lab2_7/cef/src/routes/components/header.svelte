@@ -46,8 +46,8 @@
       <a href="/"><img src="/images/logo.png" alt="Golobe"></a>
     </div>
     <div class="buttons">
-      <button>Login</button>
-      <button>Sign up</button>
+      <a href="../pages/login">Login</a>
+      <a href="../pages/register">Sign up</a>
     </div>
   </div>
 </section>
@@ -143,7 +143,7 @@
 
         gap: 15px;
 
-        button {
+        a {
           background: transparent;
 
           border-radius: 8px;
@@ -154,9 +154,11 @@
 
           font-size: 14px;
           font-weight: 550;
+
+          text-decoration: none;
         }
 
-        button:nth-child(2) {
+        a:nth-child(2) {
           background: #000;
           color: #FFF;
         }
