@@ -1,8 +1,46 @@
-<script>
+<script lang="ts">
   import Icon from '@iconify/svelte';
   import { onDestroy, onMount } from "svelte";
   import { fade } from "svelte/transition";
   import { quintOut } from "svelte/easing";
+
+  let email: string;
+  let password: string;
+  let phoneNumber: string;
+  let name: string;
+  let surname: string;
+  let confirmPassword: string;
+
+  let isAgreeTerms: boolean = false;
+
+  const tryRegister = async() => {
+    if (email && password && phoneNumber && name && surname && confirmPassword) {
+      if (!isAgreeTerms) {
+        alert('Please agree to all terms and conditions');
+        return;
+      }
+
+      if (email.length < 1 || password.length < 1 || phoneNumber.length < 1 || name.length < 1 || surname.length < 1 || confirmPassword.length < 1) {
+        alert('Please fill in all fields');
+        console.log('err');
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        alert('Passwords do not match');
+        return;
+      }
+
+      await CefSharp.BindObjectAsync("boundAsync", "bound");
+      boundAsync.registerUser(name, surname, email, phoneNumber, password);
+    }
+    else {
+      alert('Please fill in all fields');
+      console.log('err');
+      return;
+    }
+  }
+
 
   const changePasswordViewType = () => {
     const password = document.getElementById('password');
@@ -52,27 +90,27 @@
         <div class="textInput">
           <div class="element">
             <span>First Name</span>
-            <input type="text" name="" id="">
+            <input type="text" name="" id="" bind:value={name}>
           </div>
           <div class="element">
             <span>Last Name</span>
-            <input type="text" name="" id="">
+            <input type="text" name="" id="" bind:value={surname}>
           </div>
         </div>
         <div class="textInput">
           <div class="element">
             <span>Email</span>
-            <input type="email" name="" id="">
+            <input type="email" name="" id="" bind:value={email}>
           </div>
           <div class="element">
             <span>Phone number</span>
-            <input type="tel" name="" id="">
+            <input type="tel" name="" id="" bind:value={phoneNumber}>
           </div>
         </div>
         <div class="password">
           <span>Password</span>
           <div class="block">
-            <input type="password" name="" id="password">
+            <input type="password" name="" id="password" bind:value={password}>
             <div class="icon" on:click={() => changePasswordViewType()}>
               <Icon icon="formkit:hidden" />
             </div>
@@ -81,7 +119,7 @@
         <div class="password">
           <span>Confirm password</span>
           <div class="block">
-            <input type="password" name="" id="password">
+            <input type="password" name="" id="password" bind:value={confirmPassword}>
             <div class="icon" on:click={() => changePasswordViewType()}>
               <Icon icon="formkit:hidden" />
             </div>
@@ -89,16 +127,16 @@
         </div>
         <div class="otherFeature">
           <div class="remember">
-            <input type="checkbox">
+            <input type="checkbox" bind:checked={isAgreeTerms}>
             <span>I agree to all <a href="/">Terms</a> and <a href="/">Privacy Policies</a></span>
           </div>
         </div>
       </div>
       <div class="button">
-        <button>Create account</button>
+        <button on:click={() => tryRegister()}>Create account</button>
       </div>
       <div class="signUp">
-        <span>Already have an account? <a href="/">Login</a></span>
+        <span>Already have an account? <a href="/pages/login">Login</a></span>
       </div>
     </div>
   </div>

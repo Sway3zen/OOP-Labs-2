@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
 
-  import { activePage } from '../states';
+  import { activePage, name, email  } from '../states';
   import { base } from '$app/paths';
 
   onMount(() => {
@@ -41,14 +41,30 @@
         <span>Find Stays</span>
         <div class="markActive"></div>
       </a>
+      {#if $email == 'kovaloff10@gmail.com'}
+        <a href="/pages/admin" class="element">
+          <svg viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <path d="M0 0v17h17v-17h-17zM16 16h-15v-15h15v15zM4 10.232v2.768h1v-2.768c0.738-0.218 1.281-0.894 1.281-1.701s-0.543-1.483-1.281-1.701v-2.83h-1v2.83c-0.738 0.218-1.281 0.894-1.281 1.701s0.543 1.484 1.281 1.701zM4.5 7.75c0.431 0 0.781 0.351 0.781 0.781s-0.35 0.781-0.781 0.781-0.781-0.35-0.781-0.781 0.35-0.781 0.781-0.781zM8 8.107v4.893h1v-4.893c0.738-0.218 1.281-0.894 1.281-1.701s-0.543-1.483-1.281-1.701v-0.705h-1v0.705c-0.738 0.218-1.281 0.894-1.281 1.701s0.543 1.484 1.281 1.701zM8.5 5.625c0.431 0 0.781 0.351 0.781 0.781s-0.35 0.782-0.781 0.782-0.781-0.351-0.781-0.782 0.35-0.781 0.781-0.781zM12.5 13.417c0.982 0 1.781-0.799 1.781-1.781 0-0.808-0.543-1.483-1.281-1.701v-5.935h-1v5.935c-0.738 0.218-1.281 0.894-1.281 1.701 0 0.982 0.799 1.781 1.781 1.781zM12.5 10.854c0.431 0 0.781 0.351 0.781 0.781s-0.351 0.781-0.781 0.781-0.781-0.351-0.781-0.781 0.35-0.781 0.781-0.781z" fill="#000000" />
+          </svg>
+          <span>Admin panel</span>
+        </a>
+      {/if}
     </div>
     <div class="logo">
       <a href="/"><img src="/images/logo.png" alt="Golobe"></a>
     </div>
-    <div class="buttons">
-      <a href="../pages/login">Login</a>
-      <a href="../pages/register">Sign up</a>
-    </div>
+    
+    {#if $name !== '' && $email !== ''}
+       <a href="/" class="profile">
+        <img src="/images/ProfilePhoto.png" alt="">
+        <span>{$name}</span>
+      </a>
+    {:else}
+      <div class="buttons">
+        <a href="../pages/login">Login</a>
+        <a href="../pages/register">Sign up</a>
+      </div>
+    {/if}
   </div>
 </section>
 
@@ -97,6 +113,7 @@
 
           span {
             text-wrap: nowrap;
+            color: #000;
           }
 
           .markActive {
@@ -136,6 +153,21 @@
         }
       }
 
+      .profile {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        gap: 5px;
+
+        color: #000;
+
+        img {
+          width: 45px;
+          height: 45px;
+        }
+      }
+
       .buttons {
         display: flex;
         flex-direction: row;
@@ -156,6 +188,8 @@
           font-weight: 550;
 
           text-decoration: none;
+
+          color: #000;
         }
 
         a:nth-child(2) {

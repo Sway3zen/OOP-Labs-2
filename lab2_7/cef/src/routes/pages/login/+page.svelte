@@ -1,8 +1,28 @@
-<script>
+<script lang="ts">
   import Icon from '@iconify/svelte';
   import { onDestroy, onMount } from "svelte";
   import { fade } from "svelte/transition";
   import { quintOut } from "svelte/easing";
+
+
+  let email: string;
+  let password: string;
+
+  const tryLogin = async() => {
+    if (email && password) {
+      if (email.length < 1 || password.length < 1) {
+        alert('Please fill in all fields');
+        return;
+      }
+
+      await CefSharp.BindObjectAsync("boundAsync", "bound");
+      boundAsync.loginUser(email, password);
+      return;
+    }
+
+    alert('Please fill in all fields');
+  }
+
 
   const changePasswordViewType = () => {
     const password = document.getElementById('password');
@@ -41,13 +61,13 @@
         <div class="inputs">
           <span>Email</span>
           <div class="block">
-            <input type="text" name="" id="email">
+            <input type="text" name="" id="email" bind:value={email}>
           </div>
         </div>
         <div class="inputs">
           <span>Password</span>
           <div class="block">
-            <input type="password" name="" id="password">
+            <input type="password" name="" id="password" bind:value={password}>
             <div class="icon" on:click={() => changePasswordViewType()}>
               <Icon icon="formkit:hidden" />
             </div>
@@ -64,10 +84,10 @@
         </div>
       </div>
       <div class="button">
-        <button>Login</button>
+        <button on:click={() => tryLogin()}>Login</button>
       </div>
       <div class="signUp">
-        <span>Don't have an account? <a href="/">Sign up</a></span>
+        <span>Don't have an account? <a href="/pages/register">Sign up</a></span>
       </div>
     </div>
     <div class="side" style="width: 30%">

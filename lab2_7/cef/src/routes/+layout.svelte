@@ -1,10 +1,24 @@
-<script>
+<script lang="ts">
+	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
+	import { name, email } from './states';
+	import { writable } from 'svelte/store'
+
 	import Header from './components/header.svelte';
 	import Footer from './components/footer.svelte';
 	import './styles.css';
 
 	// Supports weights 100-900
 	import '@fontsource-variable/montserrat';
+
+	onMount(() => {
+		window.playerLogin = function(userName: string, userEmail: string) {
+			name.set(userName);
+			email.set(userEmail);
+
+			goto('/');
+		}
+	})
 </script>
 
 <div class="app">
