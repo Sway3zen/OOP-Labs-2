@@ -103,6 +103,10 @@
               font-weight: 600;
             }
           }
+
+          .element.active {
+            color: #8DD3BB;
+          }
         }
 
         .form {
@@ -121,6 +125,31 @@
 
             width: 27%;
 
+            .inputs {
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+              align-items: center;
+
+              border: 1px solid rgba(0, 0, 0, 0.7);
+              border-radius: 4px;
+
+              padding: 5px;
+
+              input {
+                width: 45%;
+
+                border: none;
+                padding: 0;
+
+                outline: none;
+              }
+
+              span {
+                font-size: 24px;
+              }
+            }
+
             span {
               font-size: 12px;
               font-weight: 400;
@@ -134,6 +163,16 @@
 
               width: 100%;
               box-sizing: border-box;
+            }
+
+            select {
+              border-radius: 4px;
+  
+              padding: 10px;
+              width: 100%;
+              box-sizing: border-box;
+
+              border: 1px solid rgba(0, 0, 0, 0.7);
             }
           }
 

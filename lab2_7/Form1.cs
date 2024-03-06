@@ -110,7 +110,7 @@ namespace lab2_7
       flight.FirstPrice = int.Parse(TicketsPrices[4]);
       flight.FirstClass = int.Parse(TicketsPrices[5]);
 
-      new AddFlight(flight);
+      new TourAgency().addNewFlight(flight);
     }
   }
 }
