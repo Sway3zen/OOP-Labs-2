@@ -1,0 +1,225 @@
+#flightsMain {
+  display: flex;
+  flex-direction: column;
+
+  gap: 30px;
+
+  header {
+    display: flex;
+    position: relative;
+
+    img {
+      width: 100%;
+      height: auto;
+
+      z-index: 0;
+    }
+
+    .text {
+      display: flex;
+      flex-direction: column;
+
+      position: absolute;
+
+      top: 50%;
+      left: 7.5%;
+
+      transform: translate(0, -50%);
+
+      z-index: 1;
+
+      color: #FFF;
+
+      width: 20%;
+
+      span:nth-child(1) {
+        font-weight: 700;
+        font-size: 28px;
+      }
+
+      span:nth-child(2) {
+        font-size: 16px;
+        font-weight: 500;
+      }
+    }
+
+    .chooseTicket {
+      position: absolute;
+      left: 7.5%;
+      bottom: -100px;
+      width: 85%;
+      height: fit-content;
+    }
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    position: relative;
+
+    padding: 120px 0;
+
+    position: relative;
+    width: 100%;
+
+    .btnSeeAll {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      background: transparent;
+
+      button {
+        padding: 6px 9px;
+
+        background: none;
+        outline: none;
+
+        border: #8DD3BB solid 2px;
+
+        font-weight: 500;
+        font-size: 16px;
+
+        border-radius: 6px;
+      }
+    }
+
+    .container {
+      padding: 0 7.5%;
+    }
+
+    .goTogether {
+      width: auto;
+      height: auto;
+
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      .goTogetherImage {
+        width: 100%;
+        height: auto;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .block {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        .text {
+          display: flex;
+          flex-direction: column;
+          
+          line-height: 1.5;
+
+          color: #000;
+
+          span:nth-child(1) {
+            font-weight: 700;
+            font-size: 28px;
+          }
+
+          span:nth-child(2) {
+            font-weight: 500;
+            font-size: 16px;
+          }
+        }
+      }
+
+      .exampleTickets {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .card {
+          width: 24%;
+          height: fit-content;
+  
+          position: relative;;
+  
+          img {
+            width: 100%;
+            height: auto;
+          }
+  
+          .info {
+            position: absolute;          
+            bottom: 0;
+  
+            width: 100%;
+            height: fit-content;
+  
+            .container {
+              display: flex;
+              flex-direction: column;
+              gap: 5px;
+              padding: 20px;
+            }
+  
+            .text {
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+              align-items: center;
+  
+              color: #FFF;
+  
+              .title {
+                line-height: 1.5;
+  
+                display: flex;
+                flex-direction: column;
+  
+                span:nth-child(1) {
+                  font-weight: 700;
+                  font-size: 18px;
+                }
+  
+                span:nth-child(2) {
+                  font-weight: 400;
+                  font-size: 14px;
+                }
+              }
+  
+              .price {
+                font-weight: 500;
+                font-size: 18px;
+              }
+            }
+  
+            .btn {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+  
+              width: 100%;
+              height: fit-content;
+  
+              button {
+                width: 100%;
+  
+                padding: 9px 6px;
+                border-radius: 6px;
+  
+                border: none;
+                outline: none;
+  
+                background: #8DD3BB;
+  
+                font-weight: 500;
+              }
+            }
+          }
+        } 
+      }
+    }
+  }
+}

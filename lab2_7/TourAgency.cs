@@ -31,9 +31,28 @@ namespace lab2_7
 
     }
 
-    //public List<string> getListOfFlights()
-    //{
-    //}
+    public List<FlightsVm> getListOfFlights(string departureFrom, string arrivalTo, DateOnly date, string passengerClass, int ticketCount)
+    {
+      using (AppDbContext db = new AppDbContext())
+      {
+        List<FlightsVm> flights = new List<FlightsVm>();
+
+        switch (passengerClass)
+        {
+          case "Economy":
+            flights = db.Flights.Where(f => f.DepartureFrom == departureFrom && f.ArrivalTo == arrivalTo && f.DepartureDate == date && f.EconomyClass >= ticketCount).ToList();
+            break;
+          case "Business":
+            flights = db.Flights.Where(f => f.DepartureFrom == departureFrom && f.ArrivalTo == arrivalTo && f.DepartureDate == date && f.BusinessClass >= ticketCount).ToList();
+            break;
+          case "First class":
+            flights = db.Flights.Where(f => f.DepartureFrom == departureFrom && f.ArrivalTo == arrivalTo && f.DepartureDate == date && f.FirstClass >= ticketCount).ToList();
+            break;
+        }
+
+        return flights;
+      }
+    }
 
     //public List<string> getListOfStays()
     //{

@@ -6,6 +6,7 @@ using lab2_7.Data;
 using lab2_7.Model;
 
 using System.Runtime.InteropServices;
+using System.Web;
 
 namespace lab2_7
 {
@@ -111,6 +112,46 @@ namespace lab2_7
       flight.FirstClass = int.Parse(TicketsPrices[5]);
 
       new TourAgency().addNewFlight(flight);
+    }
+
+    public void getFlights(string from, string to, string[] date, string passengerClass, int ticketCount)
+    {
+
+      DateOnly dateOnly = new DateOnly(int.Parse(date[0]), int.Parse(date[1]), int.Parse(date[2]));
+
+
+      List<FlightsVm> tickets =  new TourAgency().getListOfFlights(from, to, dateOnly, passengerClass, ticketCount);
+
+      if (tickets.Count > 0)
+      {
+        foreach (FlightsVm ticket in tickets)
+        {
+          var rand = new Random();
+
+          int ticketClassPrice = 0;
+          switch (passengerClass) 
+          {
+            case "Economy":
+              ticketClassPrice = ticket.EconomyPrice;
+              break;
+            case "Business":
+              ticketClassPrice = ticket.BusinessPrice;
+              break;
+            case "First":
+              ticketClassPrice = ticket.FirstPrice;
+              break;
+          }
+
+          string script = "window.loadTicketsToListening(" + ticket.Id + ", " + rand.Next(1, 5) + ", '" + ticket.AirLines + "', " + ticketClassPrice + ", '" + passengerClass + "', '" +
+            ticket.DepartureTime.ToString() + "', '" + ticket.ArrivalTime + "');"; 
+          
+          Form1.browser.ExecuteScriptAsync(script);
+        }
+      }
+      else
+      {
+        Form1.browser.ExecuteScriptAsync("alert('No tickets found')");
+      }
     }
   }
 }

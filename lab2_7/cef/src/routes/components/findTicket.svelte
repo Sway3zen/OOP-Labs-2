@@ -1,6 +1,9 @@
 <script lang="ts">
 	// import Counter from './Counter.svelte';
 	import Icon from '@iconify/svelte';
+
+  import { goto } from '$app/navigation';
+  import { onMount } from 'svelte';
 	let activeType = 'Flights'
 
 	const changeActiveType = (type: string) => {
@@ -13,24 +16,39 @@
 
 	let flightsFrom: string;
 	let flightsTo: string;
-	let flightsDepartureDate: string;
-	let flightsPassengerClass: number;
+	let flightsDepartureDate: Date;
+  let flightsTickets: number = 1;
+	let flightsClass: string = 'Economy';
 
 	const findFlights = async() => {
-		if (flightsFrom && flightsTo && flightsDepartureDate && flightsPassengerClass) {
-			if (flightsFrom.length < 1 || flightsTo.length < 1 || flightsDepartureDate.length < 1) {
+		if (flightsFrom && flightsTo && flightsDepartureDate && flightsClass && flightsTickets) {
+			if (flightsFrom.length < 1 || flightsTo.length < 1 || flightsTickets < 1 || flightsClass.length < 1) {
 				alert('Please fill in all fields');
 				return;
 			}
+      
+      goto('/pages/flightsListing');
+
+      const dateSplit = flightsDepartureDate.toString().split('-');
 
 			await CefSharp.BindObjectAsync("boundAsync", "bound");
-			boundAsync.getFlights(flightsFrom, flightsTo, flightsDepartureDate, flightsPassengerClass);
+			boundAsync.getFlights(flightsFrom, flightsTo, [dateSplit[0], dateSplit[1], dateSplit[2]], flightsClass, flightsTickets);
 		}
 		else {
 			alert('Please fill in all fields');
 				return;
 		}
 	}
+
+  onMount(() => {
+    window.showError = function(message: string) {
+      alert(message);
+    }
+
+    window.goToFlightTickets = function() {
+      window.getTicketsFromListening();
+    }
+  })
 </script>
 
 <div id="chooseTicket">
@@ -62,31 +80,25 @@
           </div>
         </div>
         <div class="element">
-          <span>Trip</span>
-          <select name="" id="">
-            <option value="">Return</option>
-            <option value="">Departure</option>
-          </select>
-        </div>
-        <div class="element">
           <span>Depart day</span>
           <input type="date" name="" id="" bind:value={flightsDepartureDate}>
         </div>
         <div class="element">
-          <span>Passenger - Class</span>
-          <select name="" id="" bind:value={flightsPassengerClass}>
-            <option value="">1 Passanger, Economy</option>
-            <option value="">2 Passanger, Economy</option>
-            <option value="">1 Passanger, Business</option>
-            <option value="">2 Passanger, Business</option>
-            <option value="">1 Passanger, First class</option>
-            <option value="">2 Passanger, First class</option>
+          <span>Count tickets</span>
+          <input type="number" placeholder="Count tickets" bind:value={flightsTickets}>
+        </div>
+        <div class="element">
+          <span>Class</span>
+          <select bind:value={flightsClass}>
+            <option value="Economy">Economy</option>
+            <option value="Business">Business</option>
+            <option value="First">First class</option>
           </select>
         </div>
       </div>
 
       <div class="buttons">
-        <button><Icon icon="basil:telegram-solid" /> Show Flights</button>
+        <button on:click={() => {findFlights()}}><Icon icon="basil:telegram-solid" /> Show Flights</button>
       </div>
     {:else}
        <!-- else content here -->
@@ -151,7 +163,7 @@
             flex-direction: column;
             align-items: start;
 
-            width: 27%;
+            width: 30%;
 
             .inputs {
               display: flex;
@@ -202,10 +214,6 @@
 
               border: 1px solid rgba(0, 0, 0, 0.7);
             }
-          }
-
-          .element:nth-child(2) {
-            width: 19%;
           }
         }
 

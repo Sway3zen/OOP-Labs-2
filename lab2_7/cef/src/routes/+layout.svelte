@@ -18,6 +18,10 @@
 
 			goto('/');
 		}
+
+    window.showError = function(message: string) {
+      alert(message);
+    }
 	})
 </script>
 
@@ -34,10 +38,6 @@
 </div>
 
 <style>
-	:global(body) {
-		font-family: 'Montserrat Variable', sans-serif;
-		
-	}
 	.app {
 		display: flex;
 		flex-direction: column;
