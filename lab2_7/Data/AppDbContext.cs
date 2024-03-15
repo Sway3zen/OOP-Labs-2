@@ -5,12 +5,9 @@ namespace lab2_7.Data
 {
   public class AppDbContext : DbContext
   {
-    /*public ApplicationContext(string ConnectionString) {
-      Database.EnsureCreated();
-    }*/
-
     public DbSet<UserVm> Users { get; set; } = null!;
     public DbSet<FlightsVm> Flights { get; set; } = null!;
+    public DbSet<PurchasedFlightVm> PurchasedFlights { get; set; } = null!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

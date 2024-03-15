@@ -13,6 +13,11 @@ namespace lab2_7
   public partial class Form1 : Form
   {
     public static ChromiumWebBrowser browser;
+    public static TourAgency[] TourAgencyArray =
+      [
+        new TourAgency(),
+        new TourAgency()
+      ];
 
     public Form1()
     {
@@ -38,7 +43,7 @@ namespace lab2_7
       {
         if (!Form1.browser.IsLoading)
         {
-          //Form1.browser.ShowDevTools();
+          Form1.browser.ShowDevTools();
           
         }
       };
@@ -120,10 +125,11 @@ namespace lab2_7
       DateOnly dateOnly = new DateOnly(int.Parse(date[0]), int.Parse(date[1]), int.Parse(date[2]));
 
 
-      List<FlightsVm> tickets =  new TourAgency().getListOfFlights(from, to, dateOnly, passengerClass, ticketCount);
+      List<FlightsVm> tickets = Form1.TourAgencyArray[0].getListOfFlights(from, to, dateOnly, passengerClass, ticketCount);
 
       if (tickets.Count > 0)
       {
+
         foreach (FlightsVm ticket in tickets)
         {
           var rand = new Random();
@@ -142,9 +148,11 @@ namespace lab2_7
               break;
           }
 
-          string script = "window.loadTicketsToListening(" + ticket.Id + ", " + rand.Next(1, 5) + ", '" + ticket.AirLines + "', " + ticketClassPrice + ", '" + passengerClass + "', '" +
-            ticket.DepartureTime.ToString() + "', '" + ticket.ArrivalTime + "');"; 
-          
+          string rating = $"{rand.Next(1, 5)}.{rand.Next(1, 9)}";
+
+          string script = $"window.loadTicketsToListening({ticket.Id}, {rating}, '{ticket.AirLines}', {ticketClassPrice}, '{passengerClass}', '{ticket.DepartureTime}', '{ticket.ArrivalTime}');";
+
+
           Form1.browser.ExecuteScriptAsync(script);
         }
       }
@@ -152,6 +160,37 @@ namespace lab2_7
       {
         Form1.browser.ExecuteScriptAsync("alert('No tickets found')");
       }
+    }
+    public void buyFlightTicket(int id, string userEmail, string ticketType, int countTicket)
+    {
+      TouristVm touristInfo = new TourAgency().GetTouristInfo(userEmail);
+
+      if (touristInfo == null)
+      {
+        Form1.browser.ExecuteScriptAsync("alert('Wrong user')");
+        return;
+      }
+
+      BookingFlight tourist = new BookingFlight();
+      tourist.setTouristInfo(touristInfo);
+
+      bool isTicketBuyed = tourist.buyTicket(id, ticketType, countTicket);
+
+      if (isTicketBuyed)
+      {
+        Form1.browser.ExecuteScriptAsync("alert('Ticket purchased')");
+      }
+      else
+      {
+        Form1.browser.ExecuteScriptAsync("alert('Ticket not purchased, error')");
+      }
+
+    }
+
+    public void getPurchasedTickets(string email)
+    {
+      Tourist tourist = new Tourist();
+      tourist.getPurchasedFlightsTicket(email);
     }
   }
 }

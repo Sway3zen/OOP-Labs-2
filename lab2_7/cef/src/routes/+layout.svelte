@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
-	import { name, email } from './states';
+	import { name, email, popupData } from './states';
 	import { writable } from 'svelte/store'
+
+	import PopUp from './components/changeInfoPopUp.svelte';
 
 	import Header from './components/header.svelte';
 	import Footer from './components/footer.svelte';
@@ -24,6 +26,9 @@
     }
 	})
 </script>
+{#if $popupData.title !== ''}
+	<PopUp />
+{/if}
 
 <div class="app">
 	<Header />

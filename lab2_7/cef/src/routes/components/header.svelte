@@ -52,7 +52,7 @@
     </div>
     
     {#if $name !== '' && $email !== ''}
-       <a href="/" class="profile">
+       <a href="../pages/profile" class="profile">
         <img src="/images/ProfilePhoto.png" alt="">
         <span>{$name}</span>
       </a>

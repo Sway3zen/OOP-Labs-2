@@ -4,7 +4,9 @@
 
   import { goto } from '$app/navigation';
   import { onMount } from 'svelte';
-	let activeType = 'Flights'
+  import {flightsFrom, flightsTo, flightsDepartureDate, flightsTickets, flightsClass} from '../states';
+
+  let activeType = 'Flights'
 
 	const changeActiveType = (type: string) => {
 		const nav = document.getElementById('navigation');
@@ -14,25 +16,18 @@
 		nav?.querySelectorAll('.element')[activeType == 'Flights' ? 0 : 1].classList.add('active');
 	}
 
-	let flightsFrom: string;
-	let flightsTo: string;
-	let flightsDepartureDate: Date;
-  let flightsTickets: number = 1;
-	let flightsClass: string = 'Economy';
-
 	const findFlights = async() => {
-		if (flightsFrom && flightsTo && flightsDepartureDate && flightsClass && flightsTickets) {
-			if (flightsFrom.length < 1 || flightsTo.length < 1 || flightsTickets < 1 || flightsClass.length < 1) {
+		if ($flightsFrom && $flightsTo && $flightsDepartureDate && $flightsClass && $flightsTickets) {
+			if ($flightsFrom.length < 1 || $flightsTo.length < 1 || $flightsTickets < 1 || $flightsClass.length < 1) {
 				alert('Please fill in all fields');
 				return;
 			}
-      
+      const dateSplit = $flightsDepartureDate.toString().split('-');
+
       goto('/pages/flightsListing');
 
-      const dateSplit = flightsDepartureDate.toString().split('-');
-
-			await CefSharp.BindObjectAsync("boundAsync", "bound");
-			boundAsync.getFlights(flightsFrom, flightsTo, [dateSplit[0], dateSplit[1], dateSplit[2]], flightsClass, flightsTickets);
+			// await CefSharp.BindObjectAsync("boundAsync", "bound");
+			// boundAsync.getFlights($flightsFrom, $flightsTo, [dateSplit[0], dateSplit[1], dateSplit[2]], $flightsClass, $flightsTickets);
 		}
 		else {
 			alert('Please fill in all fields');
@@ -45,9 +40,9 @@
       alert(message);
     }
 
-    window.goToFlightTickets = function() {
-      window.getTicketsFromListening();
-    }
+    // window.goToFlightTickets = function() {
+    //   goto('/pages/flightsListing');
+    // }
   })
 </script>
 
@@ -74,22 +69,22 @@
         <div class="element">
           <span>From - To</span>
           <div class="inputs">
-            <input type="text" placeholder="From..." bind:value={flightsFrom}>
+            <input type="text" placeholder="From..." bind:value={$flightsFrom}>
             <span>-</span>
-            <input type="text" placeholder="To..." bind:value={flightsTo}>
+            <input type="text" placeholder="To..." bind:value={$flightsTo}>
           </div>
         </div>
         <div class="element">
           <span>Depart day</span>
-          <input type="date" name="" id="" bind:value={flightsDepartureDate}>
+          <input type="date" name="" id="" bind:value={$flightsDepartureDate}>
         </div>
         <div class="element">
           <span>Count tickets</span>
-          <input type="number" placeholder="Count tickets" bind:value={flightsTickets}>
+          <input type="number" placeholder="Count tickets" bind:value={$flightsTickets}>
         </div>
         <div class="element">
           <span>Class</span>
-          <select bind:value={flightsClass}>
+          <select bind:value={$flightsClass}>
             <option value="Economy">Economy</option>
             <option value="Business">Business</option>
             <option value="First">First class</option>

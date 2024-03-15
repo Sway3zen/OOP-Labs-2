@@ -9,7 +9,7 @@
 
 <section id="flightsMain">
   <header>
-    <img src="/images/flights/main/FlightsMain.png" alt="">
+    <img loading="eager" src="/images/flights/main/FlightsMain.png" alt="">
 
     <div class="text">
       <span>Make your travel whishlist, we’ll do the rest</span>

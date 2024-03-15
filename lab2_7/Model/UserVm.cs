@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace lab2_7.Model
+﻿namespace lab2_7.Model
 {
   public class UserVm
   {

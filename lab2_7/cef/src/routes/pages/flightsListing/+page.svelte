@@ -1,13 +1,10 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
   import { onMount } from "svelte";
+  import { name, email } from '../../states';
   import "./styles.scss";
 
-  let flightsFrom: string;
-  let flightsTo: string;
-  let flightsDepartureDate: Date;
-  let flightsTickets: number = 1;
-	let flightsClass: string = 'Economy';
+  import {flightsFrom, flightsTo, flightsDepartureDate, flightsTickets, flightsClass} from "../../states";
 
   let countShowed = 0;
   let countMaxShowed = 0;
@@ -17,16 +14,18 @@
   $: countShowed = ticketsArray.length;
 
   const findFlights = async() => {
-		if (flightsFrom && flightsTo && flightsDepartureDate && flightsClass && flightsTickets) {
-			if (flightsFrom.length < 1 || flightsTo.length < 1 || flightsTickets < 1 || flightsClass.length < 1) {
+		if ($flightsFrom && $flightsTo && $flightsDepartureDate && $flightsClass && $flightsTickets) {
+			if ($flightsFrom.length < 1 || $flightsTo.length < 1 || $flightsTickets < 1 || $flightsClass.length < 1) {
 				alert('Please fill in all fields');
 				return;
 			}
+      ticketsArray.splice(0, ticketsArray.length);
+      ticketsArray = Array.from(ticketsArray);
 
-      const dateSplit = flightsDepartureDate.toString().split('-');
+      const dateSplit = $flightsDepartureDate.toString().split('-');
 
 			await CefSharp.BindObjectAsync("boundAsync", "bound");
-			boundAsync.getFlights(flightsFrom, flightsTo, [dateSplit[0], dateSplit[1], dateSplit[2]], flightsClass, flightsTickets);
+			boundAsync.getFlights($flightsFrom, $flightsTo, [dateSplit[0], dateSplit[1], dateSplit[2]], $flightsClass, $flightsTickets);
 		}
 		else {
 			alert('Please fill in all fields');
@@ -34,15 +33,27 @@
 		}
 	}
 
-  onMount(() => {
-    window.getTicketsFromListening = function (from: string, to: string, date: string, passengerClass: number) {
-      flightsFrom = from;
-      flightsTo = to;
-      flightsDepartureDate = date;
-      flightsPassengerClass = passengerClass;
-
-      findFlights();
+  const buyFlightTicket = async(id: number) => {
+    if ($name == '' || $email == '') {
+      alert('Please login to your account.');
+      return;
     }
+
+    await CefSharp.BindObjectAsync("boundAsync", "bound");
+    boundAsync.buyFlightTicket(id, $email, $flightsClass, $flightsTickets);
+  }
+
+  onMount(() => {
+    findFlights();
+
+    // window.getTicketsFromListening = function (from: string, to: string, date: string, passengerClass: number) {
+    //   flightsFrom = from;
+    //   flightsTo = to;
+    //   flightsDepartureDate = date;
+    //   flightsPassengerClass = passengerClass;
+
+    //   findFlights();
+    // }
 
     window.loadTicketsToListening = function(id: number, rating: number, name: string, price: number, type: string, departureTime: string, arrivedTime: string) {
       ticketsArray.push({
@@ -58,7 +69,7 @@
       ticketsArray = Array.from(ticketsArray);
     }
 
-    const tickets = [
+    /*const tickets = [
       {
         id: 0,
         rating: 4.2,
@@ -107,7 +118,7 @@
     ]
 
     ticketsArray = Array.from(tickets);
-    
+    */
   }) 
 </script>
 
@@ -122,17 +133,11 @@
               <input
                 type="text"
                 placeholder="From..."
-                bind:value={flightsFrom}
+                bind:value={$flightsFrom}
               />
               <span>-</span>
-              <input type="text" placeholder="To..." bind:value={flightsTo} />
+              <input type="text" placeholder="To..." bind:value={$flightsTo} />
             </div>
-          </div>
-          <div class="element">
-            <span>Trip</span>
-            <select name="" id="">
-              <option value="">Departure</option>
-            </select>
           </div>
           <div class="element">
             <span>Depart day</span>
@@ -140,23 +145,23 @@
               type="date"
               name=""
               id=""
-              bind:value={flightsDepartureDate}
+              bind:value={$flightsDepartureDate}
             />
           </div>
           <div class="element">
             <span>Count tickets</span>
-            <input type="number" placeholder="Count tickets" bind:value={flightsTickets}>
+            <input type="number" placeholder="Count tickets" bind:value={$flightsTickets}>
           </div>
           <div class="element">
             <span>Class</span>
-            <select bind:value={flightsClass}>
+            <select bind:value={$flightsClass}>
               <option value="Economy">Economy</option>
               <option value="Business">Business</option>
               <option value="First">First class</option>
             </select>
           </div>
           <div class="buttons">
-            <button><Icon icon="material-symbols:search" /></button>
+            <button on:click={() => findFlights()}><Icon icon="material-symbols:search" /></button>
           </div>
         </div>
       </div>
@@ -211,7 +216,7 @@
                 </div>
     
                 <div class="btn">
-                  <button>Buy ticket</button>
+                  <button on:click={() => buyFlightTicket(ticket.id)}>Buy ticket</button>
                 </div>
               </div>
             </div>

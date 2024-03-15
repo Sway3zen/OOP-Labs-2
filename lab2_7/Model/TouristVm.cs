@@ -8,9 +8,9 @@ namespace lab2_7.Model
 {
   public class TouristVm
   {
+    public int Id { get; set; }
     public string Name { get; set; }
     public string Surname { get; set; }
-    public string Address { get; set; }
-    public string ContantInfo { get; set; }
+    public string Email { get; set; }
   }
 }

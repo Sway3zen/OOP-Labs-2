@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using lab2_7.Data;
 
@@ -11,9 +12,11 @@ using lab2_7.Data;
 namespace lab2_7.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240312204938_Update TouristVm")]
+    partial class UpdateTouristVm
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,32 +78,6 @@ namespace lab2_7.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Flights");
-                });
-
-            modelBuilder.Entity("lab2_7.Model.PurchasedFlightVm", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("FlightId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TicketType")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("TicketsCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PurchasedFlights");
                 });
 
             modelBuilder.Entity("lab2_7.Model.UserVm", b =>
