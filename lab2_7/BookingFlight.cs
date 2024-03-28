@@ -1,24 +1,26 @@
 ﻿using lab2_7.Data;
 using lab2_7.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using lab2_7.Interfaces;
+using CefSharp.DevTools.Debugger;
 
 namespace lab2_7
 {
-  public sealed class BookingFlight : Booking
+  public sealed class BookingFlight : Booking, IBooking
   {
     public string Company { get; set; }
     public string FlightId { get; set; }
     public string DepartureFrom { get; set; }
     public string ArrivalTo { get; set; }
 
+    public int id { get; set; }
+    public string ticketClass { get; set; }
+    public string bookingType { get; set; }
+
     public BookingFlight() { }
 
     public BookingFlight(TouristVm tourist, string Company, string FlightId, string DepartureFrom, string ArrivalTo) : base(tourist)
     {
+      this.setTouristInfo(tourist);
       this.Company = Company;
       this.FlightId = FlightId;
       this.DepartureFrom = DepartureFrom;
@@ -27,7 +29,33 @@ namespace lab2_7
 
     public override int getPrice()
     {
-      throw new NotImplementedException();
+      if (this.bookingType == "flight")
+      {
+        using (AppDbContext db = new AppDbContext())
+        {
+          FlightsVm flight = db.Flights.Where(f => f.Id == this.id).FirstOrDefault();
+
+          if (flight == null) return 0;
+
+          int ticketPrice = -1;
+
+          switch (this.ticketClass) {
+            case "Economy":
+              ticketPrice = flight.EconomyPrice;
+              break;
+            case "Business":
+              ticketPrice = flight.BusinessPrice;
+              break;
+            case "First":
+              ticketPrice = flight.FirstPrice;
+              break;
+          }
+
+          return ticketPrice;
+        }
+      }
+
+      return 0;
     }
 
     public override bool buyTicket(int FlightId, string TicketType, int TicketCount)

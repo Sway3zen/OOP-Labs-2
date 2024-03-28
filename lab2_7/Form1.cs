@@ -31,7 +31,7 @@ namespace lab2_7
       Cef.Initialize(settings);
 
       string path = "http://localhost:5173/";
-      //string path = "C:\\Users\\Swayze\\source\\repos\\Labs\\lab2_7\\cef\\build\\index.html";
+      //string path = "C:\\Users\\sway3\\OneDrive\\Desktop\\oop\\OOP-Labs-2\\lab2_7\\cef\\build\\index.html";
       Form1.browser = new ChromiumWebBrowser(path);
   
       Form1.browser.Dock = DockStyle.Fill;
@@ -43,7 +43,7 @@ namespace lab2_7
       {
         if (!Form1.browser.IsLoading)
         {
-          Form1.browser.ShowDevTools();
+          //Form1.browser.ShowDevTools();
           
         }
       };
